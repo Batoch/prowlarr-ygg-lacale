@@ -168,7 +168,7 @@ jobs:
       - name: Update tracking variables
         if: steps.check-rebuild.outputs.rebuild == 'true'
         env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           # Update repository variables with new digests/hashes using gh CLI
           # https://github.com/Batoch/prowlarr-ygg/settings/variables/actions
