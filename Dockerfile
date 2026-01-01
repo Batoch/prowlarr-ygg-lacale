@@ -1,7 +1,19 @@
 FROM ghcr.io/hotio/prowlarr:latest
 
+# Build args to bust cache when dependencies change
+ARG GIST_HASH=unknown
+
+RUN apk update && \
+    apk add --no-cache --no-scripts git && \
+    rm -rf /var/cache/apk/*
+
 # Download YGG-API indexer
-RUN wget https://gist.githubusercontent.com/Clemv95/8bfded23ef23ec78f6678896f42a2b60/raw/f1c073f1994ab9c5c13ab68fa463ac2c862299c8/ygg-api-download.yml -O /app/indexer-definitions/ygg-api-download.yml
+RUN echo "Fetching YGG-API gist hash: ${GIST_HASH}" && \
+    mkdir -p /Clemv95 && \
+    git clone https://gist.github.com/8bfded23ef23ec78f6678896f42a2b60.git /Clemv95/ygg-api && \
+    mkdir -p /app/indexer-definitions && \
+    cp /Clemv95/ygg-api/ygg-api-download.yml /app/indexer-definitions/ && \
+    rm -rf /Clemv95
 
 # Download ygege indexer
 RUN wget https://raw.githubusercontent.com/UwUDev/ygege/refs/heads/master/ygege.yml -O /app/indexer-definitions/ygege.yml

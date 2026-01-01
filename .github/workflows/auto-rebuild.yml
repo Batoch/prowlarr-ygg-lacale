@@ -164,7 +164,7 @@ jobs:
           GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           # Update repository variables with new digests/hashes using gh CLI
-          # https://github.com/almottier/prowlarr-ygg/settings/variables/actions
+          # https://github.com/Batoch/prowlarr-ygg/settings/variables/actions
           gh variable set LAST_BASE_DIGEST --body "${{ steps.base-digest.outputs.digest }}"
           gh variable set LAST_GIST_HASH --body "${{ steps.gist-hash.outputs.hash }}"
           gh variable set LAST_YGEGE_HASH --body "${{ steps.ygege-hash.outputs.hash }}"
