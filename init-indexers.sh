@@ -10,10 +10,14 @@ cp /app/indexer-definitions/ygg-api-download.yml /config/Definitions/Custom/
 echo "Installing ygege indexer definition..."
 cp /app/indexer-definitions/ygege.yml /config/Definitions/Custom/
 
+# Copy lacale indexer
+echo "Installing lacale indexer definition..."
+cp /app/indexer-definitions/lacale-api.yml /config/Definitions/Custom/
+
 chown -R hotio:hotio /config/Definitions/
 chmod -R 755 /config/Definitions/
 
-echo "Indexers installed successfully (YGG-API, ygege)"
+echo "Indexers installed successfully (YGG-API, ygege, lacale)"
 
 # Execute the original entrypoint with all arguments
 exec /init "$@"
