@@ -141,6 +141,12 @@ jobs:
             echo "No updates found. No rebuild needed."
           fi
           
+      - name: Convert repository name to lowercase
+        if: steps.check-rebuild.outputs.rebuild == 'true'
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.repository }}
+
       - name: Build and push
         if: steps.check-rebuild.outputs.rebuild == 'true'
         uses: docker/build-push-action@v5
@@ -151,8 +157,8 @@ jobs:
           build-args: |
             GIST_HASH=${{ steps.gist-hash.outputs.hash }}
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
+            ghcr.io/${{ steps.string.outputs.lowercase }}:latest
+            ghcr.io/${{ steps.string.outputs.lowercase }}:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           labels: |
