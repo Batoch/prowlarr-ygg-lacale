@@ -142,6 +142,7 @@ jobs:
           fi
           
       - name: Convert repository name to lowercase
+        id: string
         if: steps.check-rebuild.outputs.rebuild == 'true'
         uses: ASzc/change-string-case-action@v6
         with:
